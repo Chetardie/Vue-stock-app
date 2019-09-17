@@ -1,17 +1,27 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <div class="container">
+      <app-header></app-header>
+      <div class="row">
+        <div class="col">
+          <router-view></router-view>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Header from './components/Header'
+import Stocks from './data/stocks'
 
 export default {
-  name: 'app',
   components: {
-    HelloWorld
+    appHeader: Header
+  },
+  name: 'app',
+  created () {
+    this.$store.dispatch('initStocks', Stocks)
   }
 }
 </script>
@@ -23,6 +33,5 @@ export default {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
 }
 </style>
