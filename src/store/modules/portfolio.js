@@ -1,29 +1,28 @@
-import stocks from '../../data/stocks'
-
 const state = {
     funds: 10000,
     stocks: []
 }
 
 const mutations = {
-    'BUY_STOCK' (state, {stockId, quantity, stockPrice}) {
-        const record = state.stocks.find(el => Element.id === stockId)
+    'BUY_STOCK'(state, {stockId, quantity, stockPrice}) {
+        const record = state.stocks.find(element => element.id == stockId);
         if (record) {
-            record.quantity += quantity
+            record.quantity += quantity;
         } else {
             state.stocks.push({
                 id: stockId,
-                quantity
-            })
+                quantity: quantity
+            });
         }
-        state.funds -= stockPrice * quantity
+        state.funds -= stockPrice * quantity;
     },
     'SELL_STOCK' (state, {stockId, quantity, stockPrice}) {
         const record = state.stocks.find(el => el.id === stockId)
+        // console.log(record, state.funds)
         if (record.quantity > quantity) {
             record.quantity -= quantity
         } else {
-            state.stocks.slice(state.stocks.indexOf(record), 1)
+            state.stocks.splice(state.stocks.indexOf(record), 1);
         }
         state.funds += stockPrice * quantity
     },
@@ -39,7 +38,7 @@ const actions = {
 const getters = {
     stockPortfolio (state, getters) {
         return state.stocks.map(stock => {
-            const record = getters.state.stocks.find(el => el.id === stock.id)  
+            const record = getters.stocks.find(element => element.id == stock.id)
             return {
                 id: stock.id,
                 quantity: stock.quantity,
